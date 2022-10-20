@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html lang="ru"> 
+  <head>    
+    {% include 'includes/meta.html' %}  
+    <title>
+      {% block title %}
+        Контент не подвезли :(
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    {% block header %}
+      {% include 'includes/header.html' %}
+    {% endblock %}
+    <main>
+      <div class="container py-5">        
+        {% block content %}
+          Контент не подвезли :(
+        {% endblock %}
+      </div> 
+    </main> 
+    {% block footer %}
+      {% include 'includes/footer.html' %}  
+    {% endblock %}   
+  </body>
+</html>
