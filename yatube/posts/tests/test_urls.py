@@ -58,6 +58,7 @@ class PostURLTests(TestCase):
             f'/posts/{post.id}/',
             f'/group/{post.group.slug}/',
             f'/profile/{user_authorized.username}/',
+            '/follow/'
         ]
         for address in url_names:
             with self.subTest(address=address):
@@ -94,7 +95,7 @@ class PostURLTests(TestCase):
             f'/posts/{post.id}/edit/': 'posts/create_post.html',
             f'/group/{post.group.slug}/': 'posts/group_list.html',
             f'/profile/{user_authorized.username}/': 'posts/profile.html',
-            '/unexisting_page/': 'core/404.html',
+            '/follow/': 'posts/follow.html',
         }
         for address, template in templates_url_names.items():
             with self.subTest(address=address):

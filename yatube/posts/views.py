@@ -16,7 +16,7 @@ follow_index_pages: int = 10  # количество выводимых пост
 
 def index(request):
     '''Главная страница.'''
-    post_list = Post.objects.all()
+    post_list = Post.objects.select_related()
     page_obj = paginator_utils(request, post_list, index_posts_pages)
     context = {
         'page_obj': page_obj,
@@ -27,7 +27,7 @@ def index(request):
 def group_posts(request, slug):
     '''Страницы сообщества.'''
     group = get_object_or_404(Group, slug=slug)
-    group_list = group.posts.all()
+    group_list = group.posts.select_related()
     page_obj = paginator_utils(request, group_list, group_posts_pages)
     context = {
         'group': group,
@@ -39,10 +39,11 @@ def group_posts(request, slug):
 def profile(request, username):
     '''Страницы профайла.'''
     user_obj = get_object_or_404(User, username=username)
-    authr_posts = user_obj.posts.all()
+    authr_posts = user_obj.posts.select_related()
     count = authr_posts.count()
     page_obj = paginator_utils(request, authr_posts, authr_posts_pages)
-    following = user_obj.following.filter(user=request.user.id)
+    following = user_obj.following.select_related(
+        'user').filter(user=request.user.id)
     context = {
         'user_obj': user_obj,
         'count': count,
@@ -138,9 +139,12 @@ def profile_follow(request, username):
     user_obj = get_object_or_404(User, username=username)
     if request.user.id == user_obj.id:
         return redirect('posts:profile', username=user_obj)
-    follow = user_obj.following.filter(user=request.user)
+    follow = user_obj.following.select_related(
+        'user',
+        'author'
+    ).filter(user=request.user)
     if not follow:
-        Follow.objects.create(author=user_obj, user=request.user)
+        user_obj.following.create(user=request.user)
     return redirect('posts:profile', username=user_obj)
 
 
