@@ -7,6 +7,8 @@
 {% block content %}
   {% include 'posts/includes/switcher.html' %}
   <h1>Избранные авторы</h1>
-  {% include 'posts/includes/posts_list.html' %}
+  {% for post in page_obj %}
+    {% include 'posts/includes/posts_list.html' %}
+  {% endfor %}
   {% include 'posts/includes/paginator.html' %}   
 {% endblock %}

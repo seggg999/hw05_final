@@ -6,6 +6,8 @@
 {% block content %} 
   <h1>{{ group.title }}</h1>
   <p>{{group.description}}</p>
-  {% include 'posts/includes/posts_list.html' %}
+  {% for post in page_obj %}
+    {% include 'posts/includes/posts_list.html' %}
+  {% endfor %}
   {% include 'posts/includes/paginator.html' %}   
 {% endblock %}  
