@@ -14,3 +14,8 @@ def csrf_failure(request, reason=''):
 def server_error(request):
     '''Ошибка 500: внутренняя проблема сервера.'''
     return render(request, 'core/500.html', status=500)
+
+
+def permission_denied(request, exception):
+    '''Ошибка 403'''
+    return render(request, 'core/403.html', status=403)

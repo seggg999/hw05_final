@@ -74,7 +74,6 @@ class PostURLTests(TestCase):
     def test_url_non_existent_page_404(self):
         """Несуществующая страница выдает ошибку 404."""
         url_names = [
-            '/unexisting_page/'
             '/posts/666/',
             '/group/bad-slug/',
             '/profile/bad_user/',
