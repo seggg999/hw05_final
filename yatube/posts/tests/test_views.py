@@ -1,5 +1,4 @@
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.core.cache.utils import make_template_fragment_key
 from django.test import Client, TestCase, override_settings
 from django.contrib.auth import get_user_model
 from django.core.cache import cache
@@ -346,8 +345,7 @@ class PostWiewsTests(TestCase):
         response = self.guest_client.get(reverse('posts:index'))
         posts_cache_new_post = response.content
         self.assertEqual(new_post_content, posts_cache_new_post)
-        key = make_template_fragment_key('index_page')
-        cache.delete(key)
+        cache.clear()
         response = self.guest_client.get(reverse('posts:index'))
         posts_cache_clear = response.content
         self.assertNotEqual(posts_cache_new_post, posts_cache_clear)
