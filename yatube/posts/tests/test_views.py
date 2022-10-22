@@ -396,12 +396,6 @@ class PostWiewsTests(TestCase):
 
     def test_new_post_appears_for_subscribers(self):
         """Новая запись автора появляется в ленте тех, кто на него подписан."""
-        user_auth_2 = PostWiewsTests.user_auth_2
-        user_auth_1 = PostWiewsTests.user_auth_1
-        Follow.objects.create(
-            user=user_auth_2,
-            author=user_auth_1,
-        )
         new_post = Post.objects.create(
             author=self.user_auth_1,
             text='Пост появляется у подписанта',

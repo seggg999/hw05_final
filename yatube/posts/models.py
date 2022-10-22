@@ -25,6 +25,11 @@ class Group(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = ['title']
+        verbose_name = 'Группа'
+        verbose_name_plural = 'Группы'
+
 
 class Post(models.Model):
     """Модель запись сообщества:
@@ -133,3 +138,8 @@ class Follow(models.Model):
     class Meta:
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
+        constraints = [
+            models.UniqueConstraint(
+                fields=['author', 'user'],
+                name='unique_follow')
+        ]

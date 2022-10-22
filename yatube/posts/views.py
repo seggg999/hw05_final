@@ -123,9 +123,10 @@ def add_comment(request, post_id):
 @login_required
 def follow_index(request):
     '''Страница просмотра постов авторов в подписке.'''
-    follow = Follow.objects.filter(user=request.user)
-    follow_list = Post.objects.filter(
-        author__in=[fol.author for fol in follow])
+    follow = Follow.objects.values_list('author',
+                                        flat=True
+                                        ).filter(user=request.user)
+    follow_list = Post.objects.filter(author__in=follow)
     page_obj = paginator_utils(request, follow_list, follow_index_pages)
     context = {
         'page_obj': page_obj,
@@ -139,11 +140,8 @@ def profile_follow(request, username):
     user_obj = get_object_or_404(User, username=username)
     if request.user.id == user_obj.id:
         return redirect('posts:profile', username=user_obj)
-    follow = user_obj.following.select_related(
-        'user',
-        'author'
-    ).filter(user=request.user)
-    if not follow:
+    follow = user_obj.following.filter(user=request.user)
+    if not follow.exists():
         user_obj.following.create(user=request.user)
     return redirect('posts:profile', username=user_obj)
 
@@ -153,6 +151,6 @@ def profile_unfollow(request, username):
     '''Отписаться от автора.'''
     user_obj = get_object_or_404(User, username=username)
     unfollow = user_obj.following.filter(user=request.user)
-    if unfollow:
+    if unfollow.exists():
         unfollow.delete()
     return redirect('posts:profile', username=user_obj)
