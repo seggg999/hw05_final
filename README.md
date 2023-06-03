@@ -31,10 +31,10 @@ Cоздать и активировать виртуальное окружен�
     Если у вас windows source env/scripts/activate
 `
 
-Обновить:
+Обновить pip:
 
 `
-pip python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 `
 
 Установить зависимости из файла requirements.txt:
