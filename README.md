@@ -23,19 +23,33 @@ Yatube - это социальная сеть с авторизацией, пе�
 
 Перейти в каталог hw05_final
 
-Cоздать и активировать виртуальное окружение python3 -m venv env
+Cоздать и активировать виртуальное окружение python3 -m venv env:
 
+`
     Если у вас Linux/macOS source env/bin/activate
 
     Если у вас windows source env/scripts/activate
+`
 
-Обновить pip python3 -m pip install --upgrade pip
+Обновить:
 
-Установить зависимости из файла requirements.txt pip install -r requirements.txt
+`
+pip python3 -m pip install --upgrade pip
+`
 
-Выполнить миграции python3 manage.py migrate
+Установить зависимости из файла requirements.txt:
 
-Запустить проект
+`
+pip install -r requirements.txt
+`
+
+Выполнить миграции:
+
+`
+python3 manage.py migrate
+`
+
+Запустить проект:
 
 `
 python3 manage.py runserver
