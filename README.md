@@ -25,10 +25,15 @@ Yatube - это социальная сеть с авторизацией, пе�
 
 Cоздать и активировать виртуальное окружение python3 -m venv env:
 
+    Если у вас Linux/macOS:
+    
 `
-    Если у вас Linux/macOS source env/bin/activate
+    source env/bin/activate
+`
 
-    Если у вас windows source env/scripts/activate
+    Если у вас windows:
+`
+    source env/scripts/activate
 `
 
 Обновить pip:
